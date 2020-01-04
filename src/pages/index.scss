@@ -1,3 +1,41 @@
+@import "../layouts/vars";
+
 .index {
-  
-}
+  display: grid;
+  grid-template-rows: 2.5rem 1fr;
+  .title {
+    background-color: #333;
+    color: white;
+    @include centered;
+  }
+
+  .Todos {
+    .TODO {
+      display: grid;
+      grid-template-columns: 1fr 5rem;
+      border-bottom: solid 1px #ddd;
+      border-left: solid .3rem #ddd;
+      .text {
+        background-color: #fff;
+        padding: .6rem 1rem;
+      }
+      .remove {
+        background-color: #333;
+        color: #fff;
+        @include centered;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .AddButton {
+    padding: .3rem;
+    button {
+      background-color: #444;
+      outline: none;
+      border: 0 none;
+      padding: .6rem 1rem;
+      color: white;
+    }
+  }
+} 
