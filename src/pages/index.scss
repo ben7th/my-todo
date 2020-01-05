@@ -1,8 +1,57 @@
 @import "../layouts/vars";
 
+$ff: Arial, Helvetica, sans-serif;
+// $ff: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+$textColor: #f8f8f8;
+$todoTextColor: #FBDE2D;
+// $todoTextColor: $textColor;
+$idColor: #FBDE2D;
+
+@mixin todoLine {
+  display: grid;
+  grid-template-columns: 1fr 5rem;
+  border-top: solid 1px #2d3747;
+  border-left: solid .3rem #1fb6ff;
+}
+
+@mixin todoText {
+  background-color: #0f111e;
+  padding: .6rem 1rem;
+  font-size: 1rem;
+  line-height: 1.4;
+  font-family: $ff;
+  margin: 0;
+  color: $todoTextColor;
+}
+
+@mixin btnStyle {
+  background-color: #252d3b;
+  color: $textColor;
+  @include centered;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1.4;
+  border: 0 none;
+  outline: none;
+  transition: background-color .2s ease;
+  font-family: $ff;
+  &:hover {
+    background-color: lighten(#252d3b, 20%);
+  }
+  &[disabled] {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+}
+
 .index {
+  @include fillBox;
   display: grid;
   grid-template-rows: 2.5rem 1fr;
+  background-color: #1d2330;
+  color: $textColor;
+
   .title {
     background-color: #333;
     color: white;
@@ -10,32 +59,47 @@
   }
 
   .Todos {
+    .TODOID {
+      font-size: .7rem;
+      font-family: monospace;
+      padding: 0 1rem;
+      color: $idColor;
+      border-left: solid .3rem $idColor;
+      background-color: black;
+      opacity: 0.4;
+    }
     .TODO {
-      display: grid;
-      grid-template-columns: 1fr 5rem;
-      border-bottom: solid 1px #ddd;
-      border-left: solid .3rem #ddd;
+      @include todoLine;
       .text {
-        background-color: #fff;
-        padding: .6rem 1rem;
+        @include todoText;
+        &:hover {
+          background-color: lighten(#0f111e, 10%);
+        }
       }
       .remove {
-        background-color: #333;
-        color: #fff;
-        @include centered;
-        cursor: pointer;
+        @include btnStyle;
       }
+    }
+  }
+
+  .TodoInput {
+    @include todoLine;
+    textarea {
+      @include todoText;
+      border: 0 none;
+      outline: none;
+      resize: none;
+    }
+    button.save {
+      @include btnStyle;
     }
   }
 
   .AddButton {
     padding: .3rem;
     button {
-      background-color: #444;
-      outline: none;
-      border: 0 none;
+      @include btnStyle;
       padding: .6rem 1rem;
-      color: white;
     }
   }
 } 

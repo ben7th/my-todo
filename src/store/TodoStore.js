@@ -1,34 +1,35 @@
 import { observable, autorun } from 'mobx'
+import LOS from '../lib/LocalObjectStorage'
+import uuidv1 from 'uuid/v1'
 
-const LS = {
-  set (key, obj) {
-    localStorage.setItem(key, JSON.stringify(obj))
-  },
-
-  get (key) {
-    return JSON.parse(localStorage.getItem(key))
-  },
-
-  remove (key) {
-    localStorage.removeItem(key)
-  }
-}
-
-export default class TodoStore {
+class TodoStore {
   @observable todos = []
 
   constructor () {
-    this.todos = LS.get('todos') || []
-    autorun(() => {
-      LS.set('todos', this.todos)
-    })
+    this.load()
+  }
+
+  load () {
+    this.todos = LOS.get('todos') || []
   }
 
   addTodo ({ text }) {
-    this.todos.push({ text })
+    let todo = {
+      id: uuidv1(),
+      text
+    }
+    this.todos.push(todo)
   }
 
-  removeTodo ({ text }) {
-    this.todos = this.todos.filter(x => x.text !== text)
+  removeTodo ({ id }) {
+    this.todos = this.todos.filter(x => x.id !== id)
   }
 }
+
+const store = new TodoStore()
+
+autorun(() => {
+  LOS.set('todos', store.todos)
+})
+
+export default store
