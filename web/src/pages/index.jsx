@@ -46,6 +46,7 @@ class TODO extends React.Component {
       {
         isEditing ? <TodoEdit 
           todo={ this.props.todo } 
+          store={ this.props.store }
           $line={ this }
         /> : <div className={ css.TODO }>
           <pre className={ css.text }
@@ -131,7 +132,8 @@ class TodoEdit extends React.Component {
   }
 
   save () {
-    this.props.todo.text = this.state.value
+    let { store, todo } = this.props
+    store.setTodoText({ todo, text: this.state.value })
     this.props.$line.setState({ isEditing: false })
   }
 }

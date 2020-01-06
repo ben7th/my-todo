@@ -53,9 +53,9 @@ $idColor: #FBDE2D;
   color: $textColor;
 
   .title {
-    background-color: #333;
-    color: white;
+    background-color: #13161f;
     @include centered;
+    font-weight: bold;
   }
 
   .Todos {
@@ -67,6 +67,7 @@ $idColor: #FBDE2D;
       border-left: solid .3rem $idColor;
       background-color: black;
       opacity: 0.4;
+      display: none;
     }
     .TODO {
       @include todoLine;
